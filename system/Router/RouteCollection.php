@@ -1067,6 +1067,12 @@ class RouteCollection implements RouteCollectionInterface
 			$from = str_ireplace(':'.$tag, $pattern, $from);
 		}
 
+// If group have namespace
+		if(is_array($this->currentOptions) && array_key_exists('namespace', $this->currentOptions) && !empty($this->currentOptions['namespace']))
+		{
+			$namespace = $options['namespace'] ?? $this->currentOptions['namespace'];
+			$to = trim($namespace, '\\') .'\\'.$to;
+		}
 		// If no namespace found, add the default namespace
 		if (is_string($to) && strpos($to, '\\') === false)
 		{
